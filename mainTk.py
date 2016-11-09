@@ -10,7 +10,7 @@ tractor1 = main_canvas.create_image(0,0,image=tractor_img, anchor = NW)
 t1,t2= main_canvas.coords(tractor1)
 print(t1,t2)
 for i in range(0,600,1):
-    main_canvas.coords(tractor1,t1i,t2+10)
+    main_canvas.coords(tractor1,t1+i,t2+10)
     main_canvas.update()
     time.sleep(0.01)
 mainloop()
