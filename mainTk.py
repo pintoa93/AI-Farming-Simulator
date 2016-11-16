@@ -10,7 +10,7 @@ def plough_field(x,y, l, w):
         Creates a farm with the width of 'w' and length of 'l'
         l and w has to be in multiples of 10 """
     global ploughed_texture
-    ploughed_texture = PhotoImage(file="textures/dirt.gif")
+    ploughed_texture = PhotoImage(file="textures/cabbage.gif")
     for i in range(x,l+x,10):
         for k in range(y,w+y,10):
             main_canvas.create_image(i,k,image=ploughed_texture, anchor = NW)
