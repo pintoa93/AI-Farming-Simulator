@@ -5,15 +5,22 @@ def move_widget(item, x, y):
     """Moves a widget(item) on the main canvas to the new coordinates(x,y)"""
     main_canvas.coords(item,x,y)
     main_canvas.update()
-def plough_field(x,y, l, w):
+def add_cabbage_field(x,y, l, w):
     """ Top left conner of the farm is at coordinates (x,y)
         Creates a farm with the width of 'w' and length of 'l'
         l and w has to be in multiples of 10 """
-    global ploughed_texture
-    ploughed_texture = PhotoImage(file="textures/dirt.gif")
+    global cabbage_texture
+    img = []
+    global existing_farms
+    existing_farms = []
+    cabbage_texture = PhotoImage(file="textures/cabbage.gif")
     for i in range(x,l+x,10):
         for k in range(y,w+y,10):
-            main_canvas.create_image(i,k,image=ploughed_texture, anchor = NW)
+            img.append(main_canvas.create_image(i,k,image=cabbage_texture, anchor = NW))
+    existing_farms.append([x,y,x+l,y+w])
+    return img
+    print(existing_farms)
+
 root = Tk()
 icon = Image("photo", file="textures/tractor.gif")  
 root.tk.call('wm','iconphoto',root._w,icon) #Changes the application icon
@@ -28,22 +35,30 @@ x_max=int(main_canvas['width'])
 y_max=int(main_canvas['height'])
 rh= randint(8,12)
 rw = randint(10,14)
-plough_field(300,220,int(rw*10),int(rh*10))
+cabbage_patch1 = []
+cabbage_patch1.append(add_cabbage_field(300,220,int(rw*10),int(rh*10)))
+cabbage_patch1.append(add_cabbage_field(10,0,int(rw*10),int(rh*10)))
 tractor1 = main_canvas.create_image(300,200,image=tractor_img, anchor = NW) #adding tractor to the canvas
 vx = 1
 vy = 1
 while True:
     x1,y1= main_canvas.coords(tractor1)  # takes current coordinates of tractor
     if x1 > 300 and x1<((rw*10)+300)and y1 > 220 and y1<((rh*10)+220):
-        print("inside farm") # checks if the x coord of tractor is inside field
-    if (x1+10)> x_max:
+        for p in range(0,rw):
+            vx=1
+            for o in range(0,rh):
+                vy=1
+        inside = True # checks if the x coord of tractor is inside field
+    else:
+        inside = False  
+    if (x1+20)> x_max:
         vx=-1
-    if (y1+10)> y_max:
+    if (y1+20)> y_max:
         vy=-1
     if (y1)<y_min:
         vy = 1
     if (x1)<x_min:
         vx=1
     move_widget(tractor1, x1+vx, y1+vy)
-    time.sleep(0.01)
+    time.sleep(0.000001)
 mainloop()
