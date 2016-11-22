@@ -16,6 +16,7 @@ def plough_field(x,y, l, w):
             main_canvas.create_image(i,k,image=ploughed_texture, anchor = NW)
 def main():
     root = Tk()
+    root.title ("AI-FARMING-SIMULATOR")
     icon = Image("photo", file="textures/tractor.gif")  
     root.tk.call('wm','iconphoto',root._w,icon) #Changes the application icon
     main_canvas = Canvas(width =600, height = 400, bg='white')#create canvas
